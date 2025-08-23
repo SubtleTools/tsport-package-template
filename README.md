@@ -251,4 +251,8 @@ Ports created using this template:
 
 ---
 
+<div align="center">
+  <strong>Made with ❤️ by <a href="https://saulo.engineer">Saulo Vallory</a> <a href="https://github.com/svallory"><img src="assets/github.svg" alt="GitHub" style="vertical-align: middle; margin-left: 4px;"></a></strong>
+</div>
+
 **Ready to port your favorite Go package to TypeScript? Let's go! 🚀**
