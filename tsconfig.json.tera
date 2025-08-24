@@ -6,6 +6,15 @@
     "lib": ["ESNext"],
     "moduleResolution": "bundler",
     "baseUrl": ".",
+    "paths": {
+      "{{ packageName }}": ["./src/index.ts"],
+      "{{ packageName }}/go-style": ["./src/go-style.ts"],
+      "{{ packageName }}/types": ["./src/types.ts"],
+      "#src/*": ["./src/*"],
+      "#test/*": ["./test/*"],
+      "@/*": ["./src/*"],
+      "~/test/*": ["./test/*"]
+    },
     
     // Import/Export behavior
     // "allowImportingTsExtensions": true, // Disabled for emit

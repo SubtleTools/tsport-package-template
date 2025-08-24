@@ -1,21 +1,21 @@
-# Lipgloss TypeScript
+# {{ goPackageName | title_case }} TypeScript
 
 <div align="center">
 
-[![npm version](https://badge.fury.io/js/@tsports%2Flipgloss.svg)](https://badge.fury.io/js/@tsports%2Flipgloss)
+[![npm version](https://badge.fury.io/js/{{ packageName | url_encode }}.svg)](https://badge.fury.io/js/{{ packageName | url_encode }})
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
-[![Tests](https://github.com/tsports/lipgloss/actions/workflows/test.yml/badge.svg)](https://github.com/tsports/lipgloss/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/tsports/lipgloss/branch/main/graph/badge.svg)](https://codecov.io/gh/tsports/lipgloss)
+[![Tests]({{ repositoryUrl }}/actions/workflows/test.yml/badge.svg)]({{ repositoryUrl }}/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/{{ repositoryUrl | replace(from="https://github.com/", to="") }}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{ repositoryUrl | replace(from="https://github.com/", to="") }})
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/node/v/@tsports/lipgloss)](https://nodejs.org)
+[![Node.js Version](https://img.shields.io/node/v/{{ packageName }})](https://nodejs.org)
 
-**A comprehensive TypeScript port of [Charm's Lipgloss](https://github.com/charmbracelet/lipgloss) with 100% API compatibility**
+**A comprehensive TypeScript port of [{{ goRepo | replace(from="https://github.com/", to="") }}]({{ goRepo }}) with 100% API compatibility**
 
-*Style definitions for beautiful terminal layouts. Built for TypeScript/Node.js.*
+*{{ finalDescription }}. Built for TypeScript/Node.js.*
 
-[**Documentation**](https://tsports.github.io/lipgloss) • [**Examples**](https://tsports.github.io/lipgloss/examples) • [**API Reference**](https://tsports.github.io/lipgloss/api) • [**Go Original**](https://github.com/charmbracelet/lipgloss)
+[**Documentation**]({{ repositoryUrl | replace(from="github.com", to="github.io") | replace(from=".git", to="") }}) • [**Examples**]({{ repositoryUrl | replace(from="github.com", to="github.io") | replace(from=".git", to="") }}/examples) • [**API Reference**]({{ repositoryUrl | replace(from="github.com", to="github.io") | replace(from=".git", to="") }}/api) • [**Go Original**]({{ goRepo }})
 
-<img src="https://tsports.github.io/lipgloss/assets/demo.gif" width="600" alt="Lipgloss TypeScript Demo">
+<img src="{{ repositoryUrl | replace(from="github.com", to="github.io") | replace(from=".git", to="") }}/assets/demo.gif" width="600" alt="{{ goPackageName | title_case }} TypeScript Demo">
 
 </div>
 
@@ -37,13 +37,13 @@
 
 ```bash
 # npm
-npm install @tsports/lipgloss
+npm install {{ packageName }}
 
 # yarn
-yarn add @tsports/lipgloss
+yarn add {{ packageName }}
 
 # bun (recommended)
-bun add @tsports/lipgloss
+bun add {{ packageName }}
 ```
 
 ### Basic Usage
@@ -51,7 +51,7 @@ bun add @tsports/lipgloss
 **TypeScript-Native API (Recommended):**
 
 ```typescript
-import { Style, JoinVertical, Center } from '@tsports/lipgloss';
+import { Style, JoinVertical, Center } from '{{ packageName }}';
 
 // Create styles with modern TypeScript API
 const titleStyle = new Style()
@@ -77,7 +77,7 @@ console.log(ui);
 **Go-Compatible API (For Go Developers):**
 
 ```typescript
-import { NewStyle, JoinVertical, Center } from '@tsports/lipgloss/go-compat';
+import { NewStyle, JoinVertical, Center } from '{{ packageName }}/go-style';
 
 // Exact Go Lipgloss API with PascalCase methods
 const titleStyle = NewStyle()
@@ -188,7 +188,7 @@ Lipgloss supports multiple color formats:
 Create beautiful lists with various enumerators:
 
 ```typescript
-import { NewList, Bullet, Arabic, Alphabet } from '@tsports/lipgloss';
+import { NewList, Bullet, Arabic, Alphabet } from '{{ packageName }}';
 
 const list = NewList()
   .enumerator(Bullet)  // • ◦ ▪ ▫
@@ -209,7 +209,7 @@ Structured data display with styling:
 
 ```typescript
 // TypeScript-native API
-import { newTable, Style } from '@tsports/lipgloss';
+import { newTable, Style } from '{{ packageName }}';
 
 const table = newTable()
   .setHeaders('Name', 'Age', 'City')
@@ -222,7 +222,7 @@ const table = newTable()
   .setHeaderStyle(new Style().bold(true).color('blue'));
 
 // Go-compatible API
-import { NewTable, NewStyle } from '@tsports/lipgloss/go-compat';
+import { NewTable, NewStyle } from '{{ packageName }}/go-style';
 
 const goTable = NewTable()
   .SetHeaders('Name', 'Age', 'City')
@@ -237,7 +237,7 @@ const goTable = NewTable()
 Hierarchical data visualization:
 
 ```typescript
-import { NewTree, RoundedEnumerator } from '@tsports/lipgloss';
+import { NewTree, RoundedEnumerator } from '{{ packageName }}';
 
 const tree = NewTree()
   .root('Root')
@@ -277,7 +277,7 @@ const noPaddingStyle = style.unsetPadding();     // Remove padding only
 #### Enhanced Table Methods
 
 ```typescript
-import { newTable } from '@tsports/lipgloss';
+import { newTable } from '{{ packageName }}';
 
 // Advanced table control
 const table = newTable()
@@ -298,7 +298,7 @@ import {
   WithWhitespaceBackground,
   WithWhitespaceChars,
   renderWhitespace
-} from '@tsports/lipgloss';
+} from '{{ packageName }}';
 
 // Control whitespace rendering appearance
 const options = {};
@@ -312,7 +312,7 @@ const styledWhitespace = renderWhitespace(10, options);
 #### Constants
 
 ```typescript
-import { NoTabConversion } from '@tsports/lipgloss';
+import { NoTabConversion } from '{{ packageName }}';
 
 // Disable tab-to-space conversion
 const style = new Style().tabWidth(NoTabConversion);
@@ -323,7 +323,7 @@ const style = new Style().tabWidth(NoTabConversion);
 #### Joining Elements
 
 ```typescript
-import { JoinHorizontal, JoinVertical, Position } from '@tsports/lipgloss';
+import { JoinHorizontal, JoinVertical, Position } from '{{ packageName }}';
 
 // Horizontal layout
 const header = JoinHorizontal(
@@ -345,7 +345,7 @@ const page = JoinVertical(
 #### Positioning
 
 ```typescript
-import { Place, PlaceHorizontal, PlaceVertical } from '@tsports/lipgloss';
+import { Place, PlaceHorizontal, PlaceVertical } from '{{ packageName }}';
 
 // Center text in a 80x24 box
 const centered = Place(80, 24, Position.Center, Position.Center, 'Hello!');
@@ -363,7 +363,7 @@ Lipgloss TypeScript offers two APIs to suit different developer preferences:
 Modern TypeScript patterns with `new` constructors and camelCase methods:
 
 ```typescript
-import { Style, newTable, JoinVertical } from '@tsports/lipgloss';
+import { Style, newTable, JoinVertical } from '{{ packageName }}';
 
 const style = new Style()
   .color('205')
@@ -381,7 +381,7 @@ const table = newTable()
 **100% identical** Go Lipgloss API with PascalCase methods and factory functions:
 
 ```typescript
-import { NewStyle, NewTable } from '@tsports/lipgloss/go-compat';
+import { NewStyle, NewTable } from '{{ packageName }}/go-style';
 
 // Exact Go API with PascalCase methods
 const goStyle = NewStyle()
@@ -406,7 +406,7 @@ result := style.Render("Hello!")
 
 ```typescript
 // TypeScript - EXACT same API
-import { NewStyle } from '@tsports/lipgloss/go-compat';
+import { NewStyle } from '{{ packageName }}/go-style';
 
 const style = NewStyle()
   .Foreground('205')
@@ -515,8 +515,8 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ```bash
 # Clone the repository
-git clone https://github.com/tsports/lipgloss.git
-cd lipgloss
+git clone {{ repositoryUrl }}.git
+cd {{ goPackageName }}
 
 # Install dependencies (Bun recommended)
 bun install
@@ -604,10 +604,10 @@ WithWhitespaceChars('·—¶')(options);          // Custom whitespace chars
 
 ## Links
 
-- **[Documentation](https://tsports.github.io/lipgloss)** - Complete guide and examples
-- **[API Reference](https://tsports.github.io/lipgloss/api)** - Generated TypeScript docs
-- **[Examples](https://tsports.github.io/lipgloss/examples)** - Live examples and demos
-- **[Original Go Lipgloss](https://github.com/charmbracelet/lipgloss)** - The inspiration
+- **[Documentation]({{ repositoryUrl | replace(from="github.com", to="github.io") | replace(from=".git", to="") }})** - Complete guide and examples
+- **[API Reference]({{ repositoryUrl | replace(from="github.com", to="github.io") | replace(from=".git", to="") }}/api)** - Generated TypeScript docs
+- **[Examples]({{ repositoryUrl | replace(from="github.com", to="github.io") | replace(from=".git", to="") }}/examples)** - Live examples and demos
+- **[Original {{ goRepo | replace(from="https://github.com/", to="") | title_case }}]({{ goRepo }})** - The inspiration
 - **[Charm](https://charm.sh)** - The amazing team behind the original
 
 ## License
@@ -616,13 +616,13 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-- **[Charm Team](https://charm.sh)** - For creating the amazing original Lipgloss library
-- **Go Lipgloss Contributors** - For building such a beautiful and well-designed API
+- **[{{ goRepo | replace(from="https://github.com/", to="") | split(pat="/") | first | title_case }} Team]({{ goRepo | replace(from="github.com", to="") | split(pat="/") | slice(start=0, end=2) | join(sep="/") | replace(from="https://", to="https://github.com/") }})** - For creating the amazing original {{ goPackageName }} library
+- **Go {{ goPackageName | title_case }} Contributors** - For building such a beautiful and well-designed API
 - **TypeScript Community** - For the excellent tooling and ecosystem
 
 ---
 
 <div align="center">
-  <strong>Made with ❤️ by the tsports team</strong><br>
+  <strong>Made with ❤️ by <a href="https://saulo.engineer">Saulo Vallory</a> <a href="https://github.com/svallory"><img src="assets/github.svg" alt="GitHub" style="vertical-align: middle; margin-left: 4px;"></a></strong><br>
   <em>Bringing beautiful terminal UIs to the TypeScript ecosystem</em>
 </div>

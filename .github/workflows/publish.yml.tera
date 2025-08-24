@@ -29,21 +29,21 @@ jobs:
         run: bun test
 
       - name: Setup NPM authentication
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        run: echo "//registry.npmjs.org/:_authToken={% raw %}${{ secrets.NPM_TOKEN }}{% endraw %}" > ~/.npmrc
 
       - name: Publish to NPM
         run: npm publish --access public
 
       - name: Create GitHub Release Assets
         run: |
-          tar -czf uniseg-${{ github.event.release.tag_name }}.tar.gz dist/ package.json README.md LICENSE
+          tar -czf {{ goPackageName }}-{% raw %}${{ github.event.release.tag_name }}{% endraw %}.tar.gz dist/ package.json README.md LICENSE
 
       - name: Upload Release Assets
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./uniseg-${{ github.event.release.tag_name }}.tar.gz
-          asset_name: uniseg-${{ github.event.release.tag_name }}.tar.gz
+          upload_url: {% raw %}${{ github.event.release.upload_url }}{% endraw %}
+          asset_path: ./{{ goPackageName }}-{% raw %}${{ github.event.release.tag_name }}{% endraw %}.tar.gz
+          asset_name: {{ goPackageName }}-{% raw %}${{ github.event.release.tag_name }}{% endraw %}.tar.gz
           asset_content_type: application/gzip

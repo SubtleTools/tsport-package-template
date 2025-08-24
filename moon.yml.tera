@@ -48,6 +48,28 @@ tasks:
     env:
       GO_REPO: '{{ goRepo }}'
 
+  docs:
+    command: 'bun'
+    args: ['run', 'docs:build', '&&', 'bun', 'run', 'docs:serve']
+    deps: ['build']
+    local: true
+
+  docs:build:
+    command: 'bun'
+    args: ['typedoc']
+    deps: ['build']
+    inputs:
+      - 'src/**/*'
+      - 'typedoc.json'
+      - 'README.md'
+    outputs:
+      - 'docs/**/*'
+
+  docs:serve:
+    command: 'bun'
+    args: ['serve', 'docs', '--port', '3000']
+    local: true
+
   prepublish:
     command: 'bun'
     args: ['run', 'build', '&&', 'bun', 'test']

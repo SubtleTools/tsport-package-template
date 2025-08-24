@@ -17,7 +17,7 @@ Is your feature request related to a problem? Please describe the problem you're
 Describe the solution you'd like to see implemented.
 
 ## Go Reference (if applicable)
-If this feature exists in the Go rivo/uniseg library:
+If this feature exists in the Go {{ goRepo | replace(from="https://github.com/", to="") }} library:
 - Link to Go implementation
 - Expected behavior description
 

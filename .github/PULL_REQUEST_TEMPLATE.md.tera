@@ -26,7 +26,7 @@ Fixes #(issue)
 - [ ] Added tests for new functionality (if applicable)
 
 ## Go Compatibility (if applicable)
-- [ ] Tested against Go rivo/uniseg reference implementation
+- [ ] Tested against Go {{ goRepo | replace(from="https://github.com/", to="") }} reference implementation
 - [ ] Output matches Go implementation exactly
 - [ ] Added comparative test cases
 

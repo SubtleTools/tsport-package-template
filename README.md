@@ -1,258 +1,301 @@
-# Go-to-TypeScript Porting Template
+# TSports Package Template
 
-A comprehensive template for creating high-quality TypeScript ports of Go packages with 100% API compatibility.
+A comprehensive Moon template for creating high-quality TypeScript ports of Go packages with 100% API compatibility, automatic documentation generation, and GitHub Pages deployment.
 
 ## 🚀 Quick Start
 
-### 1. Use this template
+### 1. Configure the template repository
 
-Click "Use this template" on GitHub or clone it:
+Add this template repository to your `.moon/workspace.yml`:
+
+```yaml
+generator:
+  templates:
+    - 'git://github.com/tsports/tsports#main'
+```
+
+### 2. Generate a new package
+
+Use Moon to generate a new TSports package:
 
 ```bash
-git clone https://github.com/tsports/go-ts-template.git my-go-port
-cd my-go-port
+# Generate with prompts (interactive)
+moon generate tsport
+
+# Generate with all arguments (non-interactive)
+moon generate tsport -- \
+  --goRepo="https://github.com/rivo/uniseg" \
+  --packageName="@tsports/uniseg" \
+  --description="Unicode text segmentation for TypeScript"
 ```
 
-### 2. Initialize for your Go package
-
-Run the initialization script with your target Go package:
+### 3. Set up the Go reference and start developing
 
 ```bash
-# Install dependencies
-bun install
+# Navigate to generated package
+cd packages/uniseg
 
-# Initialize template (example with rivo/uniseg)
-bun run init https://github.com/rivo/uniseg @tsports/uniseg
+# Set up Go reference repository  
+bun run setup
 
-# Or with custom description
-bun run init https://github.com/charmbracelet/lipgloss @tsports/lipgloss "Terminal styling library for TypeScript"
+# Start developing
+bun run dev
 ```
 
-### 3. Implement your port
-
-```bash
-# Analyze the Go codebase
-ls test/reference/
-
-# Implement TypeScript version
-# Edit src/index.ts, src/core.ts, etc.
-
-# Test as you go
-bun test
-
-# Build when ready
-bun run build
-```
-
-## 📁 Template Structure
+## 📁 Generated Package Structure
 
 ```
+packages/your-package/
 ├── src/
 │   ├── index.ts          # TypeScript-native API (camelCase)
-│   ├── go-style.ts       # Go-compatible API (PascalCase)
-│   ├── types.ts          # TypeScript type definitions
-│   └── ...               # Your implementation files
+│   ├── go-style.ts       # Go-compatible API (PascalCase)  
+│   └── types.ts          # TypeScript type definitions
 ├── test/
 │   ├── basic.test.ts     # Basic functionality tests
-│   ├── reference/        # Go reference (auto-cloned)
-│   └── ...               # Compatibility tests
+│   ├── reference/        # Go reference (created by setup script)
+│   └── utils/            # Test utilities
+├── docs-theme/           # Custom TypeDoc theme
+├── examples/             # Usage examples  
 ├── scripts/
-│   └── init.ts           # Template initialization script
-├── .github/
-│   └── workflows/        # CI/CD workflows
-└── README.md             # Generated project README
+│   └── setup-reference.ts # Go reference setup script
+├── .github/workflows/    # CI/CD and docs deployment
+├── moon.yml              # Moon task configuration
+├── typedoc.json          # Documentation generation config
+└── README.md             # Generated from README-example.md template
 ```
 
 ## 🎯 Features
 
-### Dual API Support
-The template supports both TypeScript-native and Go-compatible APIs:
+### 🚀 **Moon Integration**
+- **Template variables** with interactive prompts
+- **Monorepo support** with packages/ directory structure  
+- **Moon task system** for build, test, and documentation
+- **Path aliases** with `#src/*` and `#test/*` imports
 
-```typescript
-// TypeScript-native API (recommended)
-import { mainFunction } from 'my-package';
-const result = mainFunction(input);
+### 📚 **Automatic Documentation**
+- **TypeDoc integration** with TSports custom theme
+- **GitHub Pages deployment** on every push to main
+- **TSDoc comments** with examples and API references
+- **Multiple export formats** (HTML, Markdown) 
 
-// Go-compatible API (for Go developers)
-import { MainFunction } from 'my-package/go-style';
-const result = MainFunction(input);
-```
+### 📦 **Modern Package Setup**
+- **Dual API support** (TypeScript-native + Go-compatible)
+- **Clean imports** with package.json imports/exports
+- **Type-safe** with comprehensive TypeScript configuration
+- **Bun-powered** build system and package management
 
-### Complete Project Setup
-- **TypeScript configuration** with strict type checking
-- **Bun-powered** build and test system
-- **GitHub Actions** for CI/CD and automated publishing
-- **Comprehensive documentation** templates
-- **Go compatibility testing** framework
-
-### Quality Assurance
-- **100% API compatibility** testing framework
-- **Cross-platform CI** (Ubuntu, macOS, Windows)
-- **Multiple Node.js versions** (18, 20, 22)
-- **Automated publishing** to NPM on release
+### 🧪 **Testing & Quality**
+- **Compatibility testing** against Go reference implementation
+- **Cross-platform CI/CD** (Ubuntu, macOS, Windows)
+- **Import pattern testing** for all module resolution styles
+- **Moon task orchestration** for complex workflows
 
 ## 🔧 Development Commands
 
-```bash
-# Install dependencies
-bun install
+After generating a package, use these Moon tasks:
 
-# Initialize template
-bun run init <go-repo-url> <typescript-package-name>
+```bash
+# Setup Go reference repository
+bun run setup                    # or: moon run setup
 
 # Development
-bun run dev              # Watch mode
-bun test                 # Run tests
-bun test --watch         # Test watch mode
-bun run build            # Build TypeScript
+bun run dev                      # or: moon run dev (watch mode)
+bun run build                    # or: moon run build  
+bun test                         # or: moon run test
 
-# Testing Go compatibility
-cd test/reference
-go run main.go > go-output.txt
-cd ../..
-bun run my-test.ts > ts-output.txt
-diff go-output.txt ts-output.txt  # Should be identical
+# Documentation  
+bun run docs                     # or: moon run docs (build + serve)
+bun run docs:build              # or: moon run docs:build
+bun run docs:serve              # or: moon run docs:serve
 
-# Publishing
-bun run prepublishOnly   # Build and test before publishing
+# Testing patterns
+bun run test:filter              # or: moon run test:filter
+bun run test:compatibility       # or: moon run test:compatibility
+
+# Package.json imports work seamlessly
+import { func } from '#src/index.js';     # Clean internal imports
+import { helper } from '#test/utils.js';   # Clean test imports
 ```
 
-## 📋 Porting Checklist
+## ⚙️ Template Variables
 
-### Phase 1: Setup
-- [ ] Run `bun run init` with your Go package
-- [ ] Analyze Go codebase structure in `test/reference/`
-- [ ] Plan TypeScript module organization
-- [ ] Set up basic type definitions in `src/types.ts`
+The template supports these variables:
 
-### Phase 2: Core Implementation
-- [ ] Port main algorithms to TypeScript
-- [ ] Implement TypeScript-native API in `src/index.ts`
+| Variable | Required | Description | Example |
+|----------|----------|-------------|---------|
+| `goRepo` | ✅ | Go repository URL to port | `https://github.com/rivo/uniseg` |
+| `packageName` | ✅ | TypeScript package name | `@tsports/uniseg` |
+| `description` | ❌ | Package description | `Unicode text segmentation` |
+| `keywords` | ❌ | Additional keywords | `unicode,text,grapheme` |
+
+**Auto-generated variables:**
+- `goPackageName` - Extracted from repository URL
+- `repositoryUrl` - Generated from package name  
+- `generatedKeywords` - Smart keywords based on Go package name
+- `finalDescription` - Uses provided or auto-generated description
+
+## 📋 Generated Package Workflow
+
+### Phase 1: Generation
+- [ ] Configure template repository in `.moon/workspace.yml`
+- [ ] Generate package with `moon generate tsport`
+- [ ] Run `bun run setup` to clone Go reference
+
+### Phase 2: Implementation  
+- [ ] Analyze Go codebase in `test/reference/`
+- [ ] Implement TypeScript port in `src/index.ts`
 - [ ] Create Go-compatible API in `src/go-style.ts`
-- [ ] Add comprehensive error handling
+- [ ] Add proper types in `src/types.ts` with TSDoc
 
-### Phase 3: Testing & Compatibility
-- [ ] Create test cases in `test/`
-- [ ] Verify outputs match Go implementation exactly
-- [ ] Test edge cases and error conditions
-- [ ] Add performance benchmarks if needed
+### Phase 3: Documentation & Testing
+- [ ] Add TSDoc comments with examples
+- [ ] Generate docs with `bun run docs:build`
+- [ ] Create compatibility tests in `test/`
+- [ ] Verify all import patterns work
 
-### Phase 4: Documentation & Polish
-- [ ] Update README.md with usage examples
-- [ ] Add comprehensive API documentation
-- [ ] Update CHANGELOG.md
-- [ ] Ensure all CI checks pass
+### Phase 4: Publishing
+- [ ] Enable GitHub Pages in repository settings
+- [ ] Push to main to trigger docs deployment
+- [ ] Verify automated documentation builds
+- [ ] Publish to NPM when ready
 
-### Phase 5: Publishing
-- [ ] Test package installation locally
-- [ ] Create GitHub release
-- [ ] Verify automated NPM publishing
-- [ ] Announce on relevant communities
+## 📦 Import & Export Patterns
+
+The generated package supports multiple import styles:
+
+### External Usage (for package consumers)
+```typescript
+// Main TypeScript-native API
+import { initializeLibrary, type LibraryOptions } from '@tsports/your-package';
+
+// Go-compatible API  
+import { InitializeLibrary } from '@tsports/your-package/go-style';
+
+// Types only
+import type { OperationMode } from '@tsports/your-package/types';
+
+// Dynamic imports
+const { initializeLibrary } = await import('@tsports/your-package');
+```
+
+### Internal Development (within the package)
+```typescript
+// Clean internal imports (no relative paths!)
+import { helper } from '#src/utils.js';
+import { LibraryError } from '#src/types.js';
+import { testUtil } from '#test/helpers.js';
+
+// Legacy aliases still work
+import { util } from '@/utils.js';
+import { testHelper } from '~/test/helper.js';
+```
 
 ## 🧪 Testing Strategy
 
-### Go Compatibility Testing
-Create test cases that verify identical behavior:
+The template includes comprehensive testing:
 
 ```typescript
-// test/compatibility.test.ts
-import { test, expect } from 'bun:test';
-import { myFunction } from '../src/index.js';
+// Tests all import patterns
+import { initializeLibrary } from '../src/index.js';      // Relative
+import { srcInit } from '#src/index.js';                  // Package import
+import { InitializeLibrary } from '@tsports/package/go-style';  // External
 
-test('matches Go output for basic case', () => {
-  // Expected output from Go implementation
-  const expected = 'go-output-here';
-  const actual = myFunction('input');
-  expect(actual).toBe(expected);
+test('import patterns work', () => {
+  expect(typeof initializeLibrary).toBe('function');
+  expect(typeof srcInit).toBe('function');  
+  expect(typeof InitializeLibrary).toBe('function');
 });
 ```
 
-### Automated Testing
-The template includes workflows for:
-- **Unit tests** with Bun test runner
-- **Go comparison tests** using reference implementation
-- **Cross-platform testing** on multiple OS and Node.js versions
-- **Performance benchmarking** (optional)
+## 🎨 Generated Package Features
 
-## 🎨 API Design Principles
-
-### 1. Dual API Pattern
+### 🔄 Dual API Pattern
 ```typescript
-// TypeScript-native (recommended)
-export function graphemeCount(text: string): number;
+// TypeScript-native (camelCase, async/await)
+import { graphemeCount } from '@tsports/uniseg';
+const count = await graphemeCount(text);
 
-// Go-compatible (for migration)
-export function GraphemeCount(text: string): number;
+// Go-compatible (PascalCase, sync)  
+import { GraphemeCount } from '@tsports/uniseg/go-style';
+const count = GraphemeCount(text);
 ```
 
-### 2. Type Safety
+### 📝 Documentation Integration
 ```typescript
-// Strong typing for all public APIs
-export interface SegmentOptions {
-  locale?: string;
-  boundaries?: BoundaryType[];
-}
-
-export function segment(text: string, options?: SegmentOptions): Segment[];
+/**
+ * Count grapheme clusters in text
+ * 
+ * @param text - Input text to analyze
+ * @returns Number of grapheme clusters
+ * 
+ * @example
+ * ```typescript
+ * const count = await graphemeCount('👨‍👩‍👧‍👦');
+ * console.log(count); // 1
+ * ```
+ * 
+ * @since 1.0.0
+ */
+export async function graphemeCount(text: string): Promise<number>;
 ```
 
-### 3. Performance
-- Use efficient data structures matching Go implementation
-- Minimize allocations and copying
-- Benchmark against Go version when possible
+### 🏗️ Clean Architecture
+- **Source organization** with logical module separation
+- **Type definitions** with comprehensive TSDoc
+- **Test structure** with compatibility verification
+- **Build system** with Moon task orchestration
 
-### 4. Error Handling
-```typescript
-// Follow TypeScript conventions while maintaining Go compatibility
-export function parseInput(input: string): Result<Data, Error>;
+## 🛠️ Template Customization
+
+To extend or modify this template:
+
+1. **Fork the repository** with the template
+2. **Modify template files** in the `tsport/` directory  
+3. **Update template.yml** with new variables if needed
+4. **Test with Moon generate** to verify changes work
+5. **Update this README** with your modifications
+
+### Adding New Variables
+```yaml
+# In template.yml
+variables:
+  newVariable:
+    type: "string"
+    required: false
+    prompt: "Enter new variable value"
+    order: 5
 ```
+
+Then use `{{ newVariable }}` in any template file.
 
 ## 📚 Resources
 
-### Go Analysis
-- Understand the Go package's architecture and patterns
-- Identify core algorithms and data structures
-- Note any Go-specific idioms that need TypeScript equivalents
-- Study the test cases for expected behavior
-
-### TypeScript Best Practices
-- Use strict TypeScript configuration
-- Leverage advanced types for better developer experience
-- Follow modern ESM module patterns
-- Ensure tree-shaking compatibility
-
-### Compatibility Tools
-- Use the Go reference in `test/reference/` for validation
-- Create comparison scripts for complex outputs
-- Set up automated compatibility testing in CI
+- **[Moon Documentation](https://moonrepo.dev/docs)** - Complete Moon guide
+- **[TypeDoc Guide](https://typedoc.org)** - Documentation generation
+- **[TSDoc Standard](https://tsdoc.org)** - Documentation comment format
+- **[Bun Documentation](https://bun.sh/docs)** - Runtime and package manager
 
 ## 🤝 Contributing
 
-1. Fork this template repository
-2. Create your port using the template
-3. Share improvements back to the template
-4. Help others with their porting efforts
+Contributions to improve the template are welcome!
+
+1. **Issues** - Report bugs or suggest enhancements
+2. **Pull Requests** - Submit improvements to the template
+3. **Examples** - Share packages created with the template
+4. **Documentation** - Help improve this guide
 
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 🏆 Success Stories
+## 🏆 Packages Using This Template
 
-Ports created using this template:
-- [`@tsports/uniseg`](https://github.com/tsports/uniseg) - Unicode text segmentation
-- *Add your successful port here!*
-
-## 🙏 Acknowledgments
-
-- **Go Community** - For creating excellent packages to port
-- **TypeScript Team** - For the amazing type system and tooling
-- **Bun Team** - For the fast runtime and package manager
+- [`@tsports/uniseg`](https://github.com/tsports/uniseg) - Unicode text segmentation  
+- [`@tsports/lipgloss`](https://github.com/tsports/lipgloss) - Terminal styling
+- *Add your package here via PR!*
 
 ---
 
 <div align="center">
-  <strong>Made with ❤️ by <a href="https://saulo.engineer">Saulo Vallory</a> <a href="https://github.com/svallory"><img src="assets/github.svg" alt="GitHub" style="vertical-align: middle; margin-left: 4px;"></a></strong>
+  <strong>TSports Template - Bringing Go packages to TypeScript with Moon 🚀</strong>
 </div>
-
-**Ready to port your favorite Go package to TypeScript? Let's go! 🚀**

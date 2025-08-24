@@ -14,14 +14,18 @@
     "test": "moon run test",
     "test:filter": "moon run test:filter",
     "test:compatibility": "moon run test:compatibility",
+    "docs": "moon run docs",
+    "docs:build": "moon run docs:build",
+    "docs:serve": "moon run docs:serve",
     "prepublishOnly": "moon run prepublish",
     "prepack": "moon run prepack",
     "setup": "moon run setup"
   },
   "keywords": [
+    "{{ goPackageName }}",
     {% for keyword in generatedKeywords %}"{{ keyword }}",{% endfor %}
-    "typescript",
-    "go-port"
+    {% if keywords %}{% for keyword in keywords %}"{{ keyword }}",{% endfor %}{% endif %}
+    "typescript"
   ],
   "author": {
     "name": "tsports",
@@ -45,21 +49,37 @@
     "LICENSE",
     "CHANGELOG.md"
   ],
+  "imports": {
+    "#src/*": "./src/*",
+    "#test/*": "./test/*"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
     "./go-style": {
       "import": "./dist/go-style.js",
+      "require": "./dist/go-style.cjs", 
       "types": "./dist/go-style.d.ts"
-    }
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs",
+      "types": "./dist/types.d.ts"
+    },
+    "./package.json": "./package.json",
+    "./README.md": "./README.md"
   },
   "dependencies": {},
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^24.3.0",
     "bun-types": "^1.2.20",
-    "typescript": "latest"
+    "typescript": "latest",
+    "typedoc": "^0.26.11",
+    "typedoc-plugin-markdown": "^4.2.10",
+    "typedoc-theme-hierarchy": "^5.0.1"
   }
 }
