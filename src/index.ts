@@ -1,4 +1,4 @@
-// {{PACKAGE_NAME}} - TypeScript port of {{GO_PACKAGE}}
+// {{ packageName }} - TypeScript port of {{ goPackageName }}
 // This is the main export file for the TypeScript-native API
 
 // Export your main functions here
@@ -6,6 +6,6 @@
 // export { mainFunction, helperFunction } from './core.js';
 // export type { MainType, HelperType } from './types.js';
 
-// TODO: Implement your TypeScript port of {{GO_PACKAGE}} here
-console.log('Welcome to {{PACKAGE_NAME}} - TypeScript port of {{GO_PACKAGE}}!');
-console.log('Run `bun run init` to initialize this template with your specific Go package.');
+// TODO: Implement your TypeScript port of {{ goPackageName }} here
+console.log('Welcome to {{ packageName }} - TypeScript port of {{ goPackageName }}!');
+console.log('Run `bun run setup` to set up the Go reference repository.');

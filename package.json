@@ -1,25 +1,25 @@
 {
-  "name": "{{PACKAGE_NAME}}",
+  "name": "{{ packageName }}",
   "version": "1.0.0",
-  "description": "{{PACKAGE_DESCRIPTION}}",
+  "description": "{% if finalDescription %}{{ finalDescription }}{% else %}TypeScript port of {{ goPackageName }} with 100% API compatibility{% endif %}",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "bun run build:clean && bun run build:compile",
-    "build:clean": "rm -rf dist",
-    "build:compile": "tsc",
-    "dev": "bun run --watch src/index.ts",
-    "test": "bun test",
-    "test:filter": "bun test --filter",
-    "test:compatibility": "bun test automated-cases.test.ts",
-    "prepublishOnly": "bun run build && bun test",
-    "prepack": "bun run build",
-    "init": "bun run scripts/init.ts"
+    "build": "moon run build",
+    "build:clean": "moon run build:clean",
+    "build:compile": "moon run build:compile",
+    "dev": "moon run dev",
+    "test": "moon run test",
+    "test:filter": "moon run test:filter",
+    "test:compatibility": "moon run test:compatibility",
+    "prepublishOnly": "moon run prepublish",
+    "prepack": "moon run prepack",
+    "setup": "moon run setup"
   },
   "keywords": [
-    "{{KEYWORDS}}",
+    {% for keyword in generatedKeywords %}"{{ keyword }}",{% endfor %}
     "typescript",
     "go-port"
   ],
@@ -30,12 +30,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "{{REPOSITORY_URL}}"
+    "url": "{% if repositoryUrl %}{{ repositoryUrl }}{% else %}https://github.com/TSports/{{ packageName | replace(from='@tsports/', to='') }}{% endif %}"
   },
   "bugs": {
-    "url": "{{REPOSITORY_URL}}/issues"
+    "url": "{% if repositoryUrl %}{{ repositoryUrl }}{% else %}https://github.com/TSports/{{ packageName | replace(from='@tsports/', to='') }}{% endif %}/issues"
   },
-  "homepage": "{{REPOSITORY_URL}}#readme",
+  "homepage": "{% if repositoryUrl %}{{ repositoryUrl }}{% else %}https://github.com/TSports/{{ packageName | replace(from='@tsports/', to='') }}{% endif %}#readme",
   "engines": {
     "node": ">=18.0.0"
   },

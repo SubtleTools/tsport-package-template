@@ -1,0 +1,68 @@
+id: "tsport"
+title: "TSports Package"
+description: "Template for creating new TypeScript ports of Go packages in the TSports ecosystem"
+destination: "packages"
+
+variables:
+  goRepo:
+    type: "string"
+    required: true
+    prompt: "Go repository URL to port (e.g., https://github.com/charmbracelet/lipgloss)"
+    order: 1
+
+  packageName:
+    type: "string"
+    required: true
+    prompt: "TypeScript package name (e.g., @tsports/lipgloss)"
+    order: 2
+
+  description:
+    type: "string"
+    required: false
+    prompt: "Package description (leave empty for auto-generated)"
+    order: 3
+    
+  keywords:
+    type: "array"
+    required: false
+    prompt: "Additional keywords (comma-separated, leave empty for auto-generated)"
+    order: 4
+
+  # Computed variables
+  repositoryUrl:
+    type: "string"
+    required: false
+    internal: true
+    default: "{% set cleanName = packageName | replace(from='@tsports/', to='') %}https://github.com/TSports/{{ cleanName }}"
+
+  goPackageName:
+    type: "string"
+    required: false
+    internal: true
+    default: "{{ goRepo | regex_replace(pattern='.*github\\.com/[^/]+/([^/]+).*', rep='$1') }}"
+
+  generatedKeywords:
+    type: "array" 
+    required: false
+    internal: true
+    default: |
+      {% set base_keywords = [goPackageName, 'go-port', 'typescript'] %}
+      {% if goPackageName is containing('text') or goPackageName is containing('string') %}
+        {% set_global base_keywords = base_keywords | concat(['text', 'string']) %}
+      {% endif %}
+      {% if goPackageName is containing('ui') or goPackageName is containing('tui') %}
+        {% set_global base_keywords = base_keywords | concat(['terminal', 'ui', 'tui']) %}
+      {% endif %}
+      {% if goPackageName is containing('style') or goPackageName is containing('color') %}
+        {% set_global base_keywords = base_keywords | concat(['styling', 'colors']) %}
+      {% endif %}
+      {% if keywords %}
+        {% set_global base_keywords = base_keywords | concat(keywords) %}
+      {% endif %}
+      {{ base_keywords }}
+
+  finalDescription:
+    type: "string"
+    required: false
+    internal: true
+    default: "{% if description %}{{ description }}{% else %}TypeScript port of {{ goPackageName }} with 100% API compatibility{% endif %}"

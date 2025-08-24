@@ -1,4 +1,4 @@
-// {{PACKAGE_NAME}} - TypeScript type definitions
+// {{ packageName }} - TypeScript type definitions
 
 // TODO: Define your TypeScript types here
 // Example:
