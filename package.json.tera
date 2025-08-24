@@ -19,6 +19,7 @@
     "docs:serve": "moon run docs:serve",
     "lint": "moon run lint",
     "format": "moon run format",
+    "format:check": "dprint check",
     "prepublishOnly": "moon run prepublish",
     "prepack": "moon run prepack",
     "setup": "moon run setup"
@@ -63,7 +64,7 @@
     },
     "./go-style": {
       "import": "./dist/go-style.js",
-      "require": "./dist/go-style.cjs", 
+      "require": "./dist/go-style.cjs",
       "types": "./dist/go-style.d.ts"
     },
     "./types": {
@@ -76,13 +77,15 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/bun": "latest",
-    "@types/node": "^24.3.0",
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "2.2.2",
+    "@moonrepo/cli": "^1.39.4",
+    "@types/bun": "^1.2.20",
     "bun-types": "^1.2.20",
-    "typescript": "latest",
-    "typedoc": "^0.26.11",
-    "typedoc-plugin-markdown": "^4.2.10",
-    "typedoc-theme-hierarchy": "^5.0.1"
+    "dprint": "^0.50.1",
+    "tsconfig-moon": "^1.4.1",
+    "typedoc": "^0.28.10",
+    "typedoc-plugin-markdown": "^4.8.1",
+    "typedoc-theme-hierarchy": "^6.0.0",
+    "typescript": "^5.9.2"
   }
 }

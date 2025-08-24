@@ -79,12 +79,14 @@ tasks:
       - 'biome.json'
 
   format:
-    command: 'biome'
-    args: ['format', 'src', 'test', '--write', '--no-errors-on-unmatched']
+    command: 'dprint'
+    args: ['fmt']
     inputs:
       - 'src/**/*'
       - 'test/**/*'
+      - '*.{json,md,yml,yaml}'
       - 'biome.json'
+      - 'dprint.json'
 
   prepublish:
     command: 'bun'

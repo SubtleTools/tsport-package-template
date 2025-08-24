@@ -72,8 +72,17 @@ jobs:
     - name: Install dependencies
       run: bun install
 
-    - name: Biome lint & format check
+    - name: Install dprint
+      run: curl -fsSL https://dprint.dev/install.sh | sh
+
+    - name: Add dprint to PATH
+      run: echo "$HOME/.dprint/bin" >> $GITHUB_PATH
+
+    - name: Biome lint check
       run: bun run lint
+
+    - name: Format check (dprint with Biome plugin)
+      run: dprint check
 
     - name: Type check
       run: bun tsc --noEmit
