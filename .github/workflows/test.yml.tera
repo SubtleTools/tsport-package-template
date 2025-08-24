@@ -59,7 +59,7 @@ jobs:
       run: bun run test:compatibility
 
   lint:
-    name: Lint & Type Check
+    name: Lint, Format & Type Check
     runs-on: ubuntu-latest
 
     steps:
@@ -71,6 +71,9 @@ jobs:
 
     - name: Install dependencies
       run: bun install
+
+    - name: Biome lint & format check
+      run: bun run lint
 
     - name: Type check
       run: bun tsc --noEmit

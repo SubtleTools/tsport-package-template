@@ -70,6 +70,22 @@ tasks:
     args: ['serve', 'docs', '--port', '3000']
     local: true
 
+  lint:
+    command: 'biome'
+    args: ['check', 'src', 'test', '--no-errors-on-unmatched']
+    inputs:
+      - 'src/**/*'
+      - 'test/**/*'
+      - 'biome.json'
+
+  format:
+    command: 'biome'
+    args: ['format', 'src', 'test', '--write', '--no-errors-on-unmatched']
+    inputs:
+      - 'src/**/*'
+      - 'test/**/*'
+      - 'biome.json'
+
   prepublish:
     command: 'bun'
     args: ['run', 'build', '&&', 'bun', 'test']
