@@ -9,7 +9,7 @@ A comprehensive template for creating high-quality TypeScript ports of Go packag
 Click "Use this template" on GitHub or clone it:
 
 ```bash
-git clone https://github.com/SubtleTools/go-ts-template.git my-go-port
+git clone https://github.com/tsports/go-ts-template.git my-go-port
 cd my-go-port
 ```
 
@@ -22,10 +22,10 @@ Run the initialization script with your target Go package:
 bun install
 
 # Initialize template (example with rivo/uniseg)
-bun run init https://github.com/rivo/uniseg @subtletools/uniseg-ts
+bun run init https://github.com/rivo/uniseg @tsports/uniseg
 
 # Or with custom description
-bun run init https://github.com/charmbracelet/lipgloss @subtletools/lipgloss-ts "Terminal styling library for TypeScript"
+bun run init https://github.com/charmbracelet/lipgloss @tsports/lipgloss "Terminal styling library for TypeScript"
 ```
 
 ### 3. Implement your port
@@ -87,7 +87,7 @@ const result = MainFunction(input);
 
 ### Quality Assurance
 - **100% API compatibility** testing framework
-- **Cross-platform CI** (Ubuntu, macOS, Windows)  
+- **Cross-platform CI** (Ubuntu, macOS, Windows)
 - **Multiple Node.js versions** (18, 20, 22)
 - **Automated publishing** to NPM on release
 
@@ -240,7 +240,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## 🏆 Success Stories
 
 Ports created using this template:
-- [`@subtletools/uniseg-ts`](https://github.com/SubtleTools/uniseg-ts) - Unicode text segmentation
+- [`@tsports/uniseg`](https://github.com/tsports/uniseg) - Unicode text segmentation
 - *Add your successful port here!*
 
 ## 🙏 Acknowledgments
